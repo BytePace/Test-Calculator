@@ -72,4 +72,41 @@ public class MainActivityTest extends Assert {
         assertTrue(mMainActivity.mFirstValue == 0);
         assertTrue(mMainActivity.mSecondValue == 0);
     }
+
+    @Test
+    public void testCalculate_2plus2_4() {
+        assertNotNull(mMainActivity);
+
+        final Button addButton = mMainActivity.getAddButton();
+        final EditText inputDataEditText = mMainActivity.getInputDataEditText();
+
+        mMainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                inputDataEditText.setText(String.valueOf(2));
+                addButton.performClick();
+                inputDataEditText.setText(String.valueOf(2));
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        assertEquals(inputDataEditText.getText().toString(), "2");
+        assertEquals(mMainActivity.getTextResult(), "2.0 +");
+        assertTrue(mMainActivity.mFirstValue == 2);
+        assertTrue(mMainActivity.mSecondValue == 0);
+
+        final Button calculateButton = mMainActivity.getCalculateButton();
+
+        mMainActivity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                calculateButton.performClick();
+            }
+        });
+
+        getInstrumentation().waitForIdleSync();
+
+        assertEquals(mMainActivity.getTextResult(), "2.0 + 2.0 = 4.0");
+    }
 }

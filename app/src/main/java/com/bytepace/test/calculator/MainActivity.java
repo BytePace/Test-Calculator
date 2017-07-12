@@ -1,5 +1,6 @@
 package com.bytepace.test.calculator;
 
+import android.os.AsyncTask;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -90,7 +91,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_calculate :
                 if(mOperation != null) {
                     mSecondValue = currentValue;
-                    calculate();
+                    new AsyncTask<Void, Void, Void>() {
+                        @Override
+                        protected Void doInBackground(Void... params) {
+                            try {
+                                Thread.sleep(4000);
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        calculate();
+                                    }
+                                });
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            return null;
+                        }
+                    }.execute();
                 }
                 break;
         }
@@ -172,5 +189,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @VisibleForTesting
     public Button getCleanButton() {
         return mCleanButton;
+    }
+
+    @VisibleForTesting
+    public Button getCalculateButton() {
+        return mCalculateButton;
     }
 }
