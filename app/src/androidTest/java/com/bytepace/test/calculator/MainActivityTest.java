@@ -74,7 +74,7 @@ public class MainActivityTest extends Assert {
     }
 
     @Test
-    public void testCalculate_2plus2_4() {
+    public void testCalculate_2plus2_4() throws InterruptedException {
         assertNotNull(mMainActivity);
 
         final Button addButton = mMainActivity.getAddButton();
@@ -98,12 +98,27 @@ public class MainActivityTest extends Assert {
 
         final Button calculateButton = mMainActivity.getCalculateButton();
 
+        final Object syncObject = new Object();
+
+        mMainActivity.setMainActivityCallBack(new MainActivityCallBack() {
+            @Override
+            public void calculateIsDone() {
+                synchronized (syncObject) {
+                    syncObject.notify();
+                }
+            }
+        });
+
         mMainActivity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
                 calculateButton.performClick();
             }
         });
+
+        synchronized (syncObject) {
+            syncObject.wait();
+        }
 
         getInstrumentation().waitForIdleSync();
 

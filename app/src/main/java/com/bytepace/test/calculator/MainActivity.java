@@ -25,6 +25,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @VisibleForTesting
     public Operation mOperation = null;
 
+    private MainActivityCallBack mMainActivityCallBack;
+
     public String ADD;
     public String SUBTRACT;
     public String DIVIDE;
@@ -62,6 +64,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SUBTRACT = getString(R.string.operation_add);
         DIVIDE = getString(R.string.operation_add);
         MULTIPLY = getString(R.string.operation_add);
+    }
+
+    public void setMainActivityCallBack(MainActivityCallBack callBack) {
+        mMainActivityCallBack = callBack;
     }
 
     @Override
@@ -128,6 +134,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setResult(mFirstValue * mSecondValue, MULTIPLY);
                 break;
         }
+
+        if(mMainActivityCallBack != null)
+            mMainActivityCallBack.calculateIsDone();
     }
 
     private void cleanData() {
