@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:padding="10dp"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.bytepace.test.calculator.MainActivity">
 
     <LinearLayout
+        android:id="@+id/ll_input_data_panel"
         android:gravity="center"
         android:orientation="horizontal"
         android:layout_width="match_parent"
@@ -28,6 +28,8 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/ll_operations_panel"
+        android:layout_below="@+id/ll_input_data_panel"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -64,9 +66,23 @@
     </LinearLayout>
 
     <TextView
+        android:layout_below="@+id/ll_operations_panel"
         android:id="@+id/tv_result"
         android:gravity="center"
         android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-</LinearLayout>
+
+    <LinearLayout
+        android:clickable="true"
+        android:id="@+id/ll_progress_bar_panel"
+        android:alpha="0.3"
+        android:background="@android:color/black"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp" />
+    </LinearLayout>
+</RelativeLayout>

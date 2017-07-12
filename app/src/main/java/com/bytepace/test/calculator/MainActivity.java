@@ -19,6 +19,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button mMultiplyButton;
     private Button mCleanButton;
     private TextView mResultTextView;
+    private View mProgressBarPanelLinearLayout;
 
     @VisibleForTesting
     public float mFirstValue = 0, mSecondValue = 0;
@@ -50,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mMultiplyButton = (Button) findViewById(R.id.btn_multiply);
         mCleanButton = (Button) findViewById(R.id.btn_clean);
         mResultTextView = (TextView) findViewById(R.id.tv_result);
+        mProgressBarPanelLinearLayout = findViewById(R.id.ll_progress_bar_panel);
+
+        mProgressBarPanelLinearLayout.setVisibility(View.GONE);
 
         mCalculateButton.setOnClickListener(this);
         mAddButton.setOnClickListener(this);
@@ -90,6 +94,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
             case R.id.btn_calculate :
                 if(mOperation != null) {
+                    mProgressBarPanelLinearLayout.setVisibility(View.VISIBLE);
                     mSecondValue = currentValue;
                     new AsyncTask<Void, Void, Void>() {
                         @Override
@@ -114,6 +119,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void calculate() {
+        mProgressBarPanelLinearLayout.setVisibility(View.GONE);
         switch (mOperation) {
             case ADD:
                 setResult(mFirstValue + mSecondValue, ADD);
