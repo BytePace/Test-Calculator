@@ -11,21 +11,18 @@ import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private EditText mInputDateEditText;
-    private Button mCalculateButton;
-    private Button mAddButton;
+    protected EditText mInputDateEditText;
+    protected Button mCalculateButton;
+    protected Button mAddButton;
     private Button mSubtractButton;
     private Button mDivideButton;
     private Button mMultiplyButton;
-    private Button mCleanButton;
-    private TextView mResultTextView;
+    protected Button mCleanButton;
+    protected TextView mResultTextView;
 
-    @VisibleForTesting
-    public float mFirstValue = 0, mSecondValue = 0;
-    @VisibleForTesting
-    public Operation mOperation = null;
 
-    private MainActivityCallBack mMainActivityCallBack;
+    protected float mFirstValue = 0, mSecondValue = 0;
+    protected Operation mOperation = null;
 
     public String ADD;
     public String SUBTRACT;
@@ -64,10 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         SUBTRACT = getString(R.string.operation_add);
         DIVIDE = getString(R.string.operation_add);
         MULTIPLY = getString(R.string.operation_add);
-    }
-
-    public void setMainActivityCallBack(MainActivityCallBack callBack) {
-        mMainActivityCallBack = callBack;
     }
 
     @Override
@@ -119,7 +112,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-    private void calculate() {
+    protected void calculate() {
         switch (mOperation) {
             case ADD:
                 setResult(mFirstValue + mSecondValue, ADD);
@@ -134,9 +127,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 setResult(mFirstValue * mSecondValue, MULTIPLY);
                 break;
         }
-
-        if(mMainActivityCallBack != null)
-            mMainActivityCallBack.calculateIsDone();
     }
 
     private void cleanData() {
@@ -173,35 +163,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             default:
                 return "";
         }
-    }
-
-    @VisibleForTesting
-    public String getTextInputData() {
-        return mInputDateEditText.getText().toString();
-    }
-
-    @VisibleForTesting
-    public String getTextResult() {
-        return mResultTextView.getText().toString();
-    }
-
-    @VisibleForTesting
-    public Button getAddButton() {
-        return mAddButton;
-    }
-
-    @VisibleForTesting
-    public EditText getInputDataEditText() {
-        return mInputDateEditText;
-    }
-
-    @VisibleForTesting
-    public Button getCleanButton() {
-        return mCleanButton;
-    }
-
-    @VisibleForTesting
-    public Button getCalculateButton() {
-        return mCalculateButton;
     }
 }

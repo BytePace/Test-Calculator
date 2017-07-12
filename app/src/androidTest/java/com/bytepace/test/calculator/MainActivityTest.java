@@ -17,11 +17,11 @@ import static android.support.test.InstrumentationRegistry.getInstrumentation;
  */
 public class MainActivityTest extends Assert {
 
-    private MainActivity mMainActivity = null;
+    private MainTestActivity mMainActivity = null;
 
     @Rule
-    public ActivityTestRule<MainActivity> mActivityTestRule =
-            new ActivityTestRule<>(MainActivity.class);
+    public ActivityTestRule<MainTestActivity> mActivityTestRule =
+            new ActivityTestRule<>(MainTestActivity.class);
 
     @Before
     public void setUp() throws Exception {
